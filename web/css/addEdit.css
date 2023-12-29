@@ -63,7 +63,7 @@ body {
 
 .btn-icon {
     display: flex;
-    align-items: center; 
+    align-items: center;
     text-decoration: none;
     gap: 8px;
 }
@@ -75,11 +75,8 @@ body {
 .group-imputs {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    /* Esto crea 2 columnas */
     grid-template-rows: repeat(5, auto);
-    /* Esto crea 5 filas */
     gap: 22px 36px;
-    /* Esto establece el espacio entre las filas y las columnas */
 }
 
 .imput {
@@ -116,7 +113,6 @@ body {
 
 .imput option {
     background: rgba(255, 255, 255, 0.20);
-    /* Cambia el color de fondo de las opciones */
 }
 
 .imput input[type="text"]::placeholder,
@@ -125,7 +121,6 @@ body {
     color: #FFFFFF;
 }
 
-/**/
 .dropdown {
     min-width: 240px;
     position: relative;
@@ -190,7 +185,7 @@ body {
     display: none;
     transition: 0.2s;
     z-index: 1;
-    backdrop-filter: blur(20px);    
+    backdrop-filter: blur(20px);
 }
 
 .menu.menu-open {
@@ -251,7 +246,7 @@ input[type="checkbox"] {
     width: 16px;
     height: 16px;
     border: 1px solid white;
-    border-radius: 6px;
+    border-radius: 5px;
     background-clip: content-box;
     padding: 2px;
 }

@@ -22,7 +22,7 @@
             </div>
             <div class="header-bottom">
                 <a href="#" class="item-bottom"><img class="icon" src="assets/user-delete.svg" alt="Eliminar"></a>
-                <a href="addEdit.html" class="item-bottom"><img class="icon" src="assets/user-add.svg" alt="Agregar"></a>
+                <a href="estudianteIns.jsp" class="item-bottom"><img class="icon" src="assets/user-add.svg" alt="Agregar"></a>
             </div>
             <div class="table">
                 <table class="table-container">
@@ -44,15 +44,15 @@
                                         <img class="img" src="assets/user1.jpg">
                                     </div>
                                     <div class="data-profile">
-                                        <p class="data">Julieta Torres Pereza hola abe dec efd daa</p>
+                                        <p class="data">Julieta Torres Pereza</p>
                                         <p class="data">julieta@gmail.com</p>
                                     </div>
                                 </div>
                             </td>
                             <td>
                                 <div class="table-operations">
-                                    <a href="view.html" class="item-operations"><img class="icon" src="assets/user-question.svg" alt="Visualizar"></a>
-                                    <a href="addEdit.html" class="item-operations"><img class="icon" src="assets/user-edit.svg" alt="Editar"></a>
+                                    <a href="estudianteDet.jsp" class="item-operations"><img class="icon" src="assets/user-question.svg" alt="Visualizar"></a>
+                                    <a href="estudianteUpd.jsp" class="item-operations"><img class="icon" src="assets/user-edit.svg" alt="Editar"></a>
                                 </div>
                             </td>
                         </tr>
