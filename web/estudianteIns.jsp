@@ -79,7 +79,7 @@
                     </div>
                     <div class="group-select">
                         <div class="radius">
-                            <label for="hobbies">Hobbies:</label>
+                            <label for="hobbies">Pasatiempos:</label>
                             <div class="checkboxes">
                                 <div class="checkbox-sub_group">
                                     <input type="checkbox" id="cantar" name="hobbies" value="cantar">

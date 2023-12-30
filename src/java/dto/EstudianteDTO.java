@@ -10,7 +10,7 @@ public class EstudianteDTO {
     private String apellido;
     private LocalDate fechaNacimiento;
     private String nDocumentoIdentidad;
-    private String correoElectronico;
+    private String correo;
     private byte[] imagenPerfil;
     private double peso;
     private double altura;
@@ -63,12 +63,12 @@ public class EstudianteDTO {
         this.nDocumentoIdentidad = nDocumentoIdentidad;
     }
 
-    public String getCorreoElectronico() {
-        return correoElectronico;
+    public String getCorreo() {
+        return correo;
     }
 
-    public void setCorreoElectronico(String correoElectronico) {
-        this.correoElectronico = correoElectronico;
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 
     public byte[] getImagenPerfil() {
@@ -134,4 +134,6 @@ public class EstudianteDTO {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
+    
 }

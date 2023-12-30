@@ -10,7 +10,7 @@ public class Estudiante {
     private String apellido;
     private LocalDate fechaNacimiento;
     private String nDocumentoIdentidad;
-    private String correoElectronico;
+    private String correo;
     private byte[] imagenPerfil;
     private double peso;
     private double altura;
@@ -63,12 +63,12 @@ public class Estudiante {
         this.nDocumentoIdentidad = nDocumentoIdentidad;
     }
 
-    public String getCorreoElectronico() {
-        return correoElectronico;
+    public String getCorreo() {
+        return correo;
     }
 
-    public void setCorreoElectronico(String correoElectronico) {
-        this.correoElectronico = correoElectronico;
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 
     public byte[] getImagenPerfil() {
@@ -95,27 +95,27 @@ public class Estudiante {
         this.altura = altura;
     }
 
-    public int getGenero() {
+    public Integer getGenero() {
         return genero;
     }
 
-    public void setGenero(int genero) {
+    public void setGenero(Integer genero) {
         this.genero = genero;
     }
 
-    public int getPasatiempo() {
+    public Integer getPasatiempo() {
         return pasatiempo;
     }
 
-    public void setPasatiempo(int pasatiempo) {
+    public void setPasatiempo(Integer pasatiempo) {
         this.pasatiempo = pasatiempo;
     }
 
-    public int getTurno() {
+    public Integer getTurno() {
         return turno;
     }
 
-    public void setTurno(int turno) {
+    public void setTurno(Integer turno) {
         this.turno = turno;
     }
 
@@ -134,4 +134,6 @@ public class Estudiante {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
+    
 }
