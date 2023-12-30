@@ -8,7 +8,7 @@ import java.sql.SQLException;
 public class ConexionBD {
     private final String HOST = "localhost";
     private final int PORT = 3306;
-    private final String DATABASE = "bd_mascotas";
+    private final String DATABASE = "bd_estudiantes";
     private final String DRIVER = "com.mysql.cj.jdbc.Driver";
     private final String URL = "jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE;
     private final String USER = "root";
