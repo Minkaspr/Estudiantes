@@ -141,4 +141,8 @@ public class EstudianteDTO {
     public void setImagenPerfilBase64(String imagenPerfilBase64) {
         this.imagenPerfilBase64 = imagenPerfilBase64;
     }
+
+    public String getImagenPerfilBase64() {
+        return imagenPerfilBase64;
+    }
 }

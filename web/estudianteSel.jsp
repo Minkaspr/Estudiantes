@@ -42,7 +42,7 @@
                                 <td colspan="4">
                                     <div class="table-data">
                                         <div class="img-profile">
-                                            <img class="img" src="data:image/jpeg;base64,${estudiante.imagenPerfilBase64}">
+                                            <img class="img" src="data:image/*;base64,${estudiante.imagenPerfilBase64}" alt="Imagen de perfil">
                                         </div>
                                         <div class="data-profile">
                                             <p class="data">${estudiante.nombre} ${estudiante.apellido}</p>

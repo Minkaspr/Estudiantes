@@ -13,7 +13,7 @@
             <div class="header">
                 <h2 class="title">Nuevo Estudiante</h2>
                 <div class="back">
-                    <a href="#" class="btn-icon">
+                    <a href="Estudiante?op=SEL" class="btn-icon">
                         <img class="icon" src="assets/user-back.svg" alt="atras">
                         Atras
                     </a>
@@ -21,7 +21,7 @@
             </div>
 
             <div class="main">
-                <form action="Estudiante" method="post">
+                <form action="Estudiante" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="op" value="INS"/>
                     <div class="group-imputs">
                         <div class="imput">

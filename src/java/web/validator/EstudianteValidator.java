@@ -50,11 +50,6 @@ public class EstudianteValidator {
         String result = null;
         List<EstudianteDTO> list = daoEstudiante.estudianteSel();
         if (list != null) {
-            for (EstudianteDTO estudiante : list) {
-                byte[] imagenPerfil = estudiante.getImagenPerfil();
-                String imagenPerfilBase64 = Base64.getEncoder().encodeToString(imagenPerfil);
-                estudiante.setImagenPerfilBase64(imagenPerfilBase64);
-            }
             request.setAttribute("estudiantes", list);
         } else {
             result = daoEstudiante.getMessage();
@@ -139,16 +134,32 @@ public class EstudianteValidator {
             result.append("<li>Correo inválido</li>");
         }
 
-//        Part filePart = null;
-//        try {
-//            filePart = request.getPart("imagen-perfil");
-//        } catch (ServletException | IOException e) {
-//            result.append("<li>Error al procesar el archivo</li>");
-//        }
-//
-//        if (filePart == null || filePart.getSize() == 0) {
-//            result.append("<li>Ingrese el archivo</li>");
-//        }
+        Part filePart = null;
+        try {
+            filePart = request.getPart("imagen-perfil");
+        } catch (ServletException | IOException e) {
+            result.append("<li>Error al procesar el archivo</li>");
+        }
+
+        if (filePart == null || filePart.getSize() == 0) {
+            result.append("<li>Ingrese el archivo</li>");
+        } else {
+            // Tamaño de archivo restringido a 1.5 MB
+            long sizeInBytes = filePart.getSize();
+            double sizeInMB = (double) sizeInBytes / (1024 * 1024);
+            if (sizeInMB > 1.5) {
+                result.append("<li>El archivo supera el límite de tamaño de 1.5 MB</li>");
+            }
+
+            // Extensiones permitidas
+            String contentType = filePart.getContentType();
+            if (!contentType.equalsIgnoreCase("image/jpeg")
+                    && !contentType.equalsIgnoreCase("image/png")
+                    && !contentType.equalsIgnoreCase("image/jpg")) {
+                result.append("<li>El archivo no es una imagen válida. Solo se permiten imágenes JPEG, PNG y JPG.</li>");
+            }
+        }
+
         String pesoAux = request.getParameter("peso");
         Double peso = null;
         if (pesoAux == null || pesoAux.trim().isEmpty()) {
@@ -246,28 +257,33 @@ public class EstudianteValidator {
         estudiante.setTurno(turno);
         estudiante.setEstado(estado);
 
-//        byte[] imagenPerfil = null;
-//        if (filePart != null && filePart.getSize() > 0) {
-//            try {
-//                InputStream fileContent = filePart.getInputStream();
-//                imagenPerfil = new byte[(int) filePart.getSize()];
-//                fileContent.read(imagenPerfil);
-//            } catch (IOException e) {
-//                result.append("<li>Error al leer el archivo</li>");
-//            }
-//        }
-//        estudiante.setImagenPerfil(imagenPerfil);
+        byte[] imagenPerfil = null;
+        if (filePart != null && filePart.getSize() > 0) {
+            try {
+                InputStream fileContent = filePart.getInputStream();
+                imagenPerfil = new byte[(int) filePart.getSize()];
+                fileContent.read(imagenPerfil);
+            } catch (IOException e) {
+                result.append("<li>Error al leer el archivo</li>");
+            }
+        }
+        estudiante.setImagenPerfil(imagenPerfil);
+
         if (!upd) {
             estudiante.setFechaRegistro(fechaRegistro);
         }
 
-        if (result.length() == 32) {
+        if (result.length() == 35) {
             String msg = upd
                     ? daoEstudiante.estudianteUpd(estudiante)
                     : daoEstudiante.estudianteIns(estudiante);
             if (msg != null) {
                 result.append("<li>").append(msg).append("</li>");
             }
+        }
+
+        if (filePart != null && filePart.getSize() > 0 && result.length() > 35) {
+            result.append("<li>Por favor, seleccione el archivo de nuevo.</li>");
         }
 
         //Si ocurre un error, se vuelve a cargar los valores
@@ -280,7 +296,7 @@ public class EstudianteValidator {
         DaoTurno daoTurno = new DaoTurnoImpl();
         List<Turno> turnos = daoTurno.turnoSelOp();
 
-        if (result.length() > 32) {
+        if (result.length() > 35) {
             request.setAttribute("estudiante", estudiante);
 
             request.setAttribute("generos", generos);
@@ -290,6 +306,6 @@ public class EstudianteValidator {
             // Devuelve los pasatiempos seleccionados al usuario
             request.setAttribute("pasatiemposSelec", pasatiemposSelec);
         }
-        return result.length() == 4 ? null : result.append("</ul>").toString();
+        return result.length() == 35 ? null : result.append("</ul>").toString();
     }
 }

@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import util.ConexionBD;
 
@@ -38,10 +39,13 @@ public class DaoEstudianteImpl implements DaoEstudiante {
             lista = new ArrayList<>();
             while (rs.next()) {
                 EstudianteDTO estudianteDTO = new EstudianteDTO();
-                estudianteDTO.setImagenPerfil(rs.getBytes(1));
+                byte[] imagenPerfil = rs.getBytes(1);
+                estudianteDTO.setImagenPerfil(imagenPerfil);
                 estudianteDTO.setNombre(rs.getString(2));
                 estudianteDTO.setApellido(rs.getString(3));
                 estudianteDTO.setCorreo(rs.getString(4));
+                String imagenPerfilBase64 = Base64.getEncoder().encodeToString(imagenPerfil);
+                estudianteDTO.setImagenPerfilBase64(imagenPerfilBase64);
                 lista.add(estudianteDTO);
             }
         } catch (SQLException e) {
@@ -67,7 +71,7 @@ public class DaoEstudianteImpl implements DaoEstudiante {
                 .append("nombre, ")
                 .append("apellido, ")
                 .append("fecha_nacimiento, ")
-                .append("n_documento_identidad, ")
+                .append("n_doc_identidad, ")
                 .append("correo, ")
                 .append("imagen_perfil, ")
                 .append("peso, ")
