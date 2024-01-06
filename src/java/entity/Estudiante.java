@@ -3,6 +3,7 @@ package entity;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class Estudiante {
     private Integer idEstudiante;
@@ -12,14 +13,14 @@ public class Estudiante {
     private String nDocumentoIdentidad;
     private String correo;
     private byte[] imagenPerfil;
-    private double peso;
-    private double altura;
+    private Double peso;
+    private Double altura;
     private Integer genero;
-    private Integer pasatiempo;
+    private List<EstudPasat> pasatiempos;
     private Integer turno;
     private LocalDateTime fechaRegistro;
     private String estado;
-
+    
     public Estudiante() {
     }
 
@@ -83,7 +84,7 @@ public class Estudiante {
         return peso;
     }
 
-    public void setPeso(double peso) {
+    public void setPeso(Double peso) {
         this.peso = peso;
     }
 
@@ -91,7 +92,7 @@ public class Estudiante {
         return altura;
     }
 
-    public void setAltura(double altura) {
+    public void setAltura(Double altura) {
         this.altura = altura;
     }
 
@@ -103,12 +104,12 @@ public class Estudiante {
         this.genero = genero;
     }
 
-    public Integer getPasatiempo() {
-        return pasatiempo;
+    public List<EstudPasat> getPasatiempos() {
+        return pasatiempos;
     }
 
-    public void setPasatiempo(Integer pasatiempo) {
-        this.pasatiempo = pasatiempo;
+    public void setPasatiempos(List<EstudPasat> pasatiempos) {
+        this.pasatiempos = pasatiempos;
     }
 
     public Integer getTurno() {
@@ -134,6 +135,4 @@ public class Estudiante {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-
-    
 }

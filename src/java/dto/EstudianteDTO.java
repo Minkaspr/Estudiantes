@@ -3,6 +3,7 @@ package dto;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class EstudianteDTO {
     private Integer idEstudiante;
@@ -15,10 +16,12 @@ public class EstudianteDTO {
     private double peso;
     private double altura;
     private String genero;
-    private String pasatiempo;
+    private List<String> pasatiempos;
     private String turno;
     private LocalDateTime fechaRegistro;
     private String estado;
+    
+    private String imagenPerfilBase64;
 
     public EstudianteDTO() {
     }
@@ -103,14 +106,14 @@ public class EstudianteDTO {
         this.genero = genero;
     }
 
-    public String getPasatiempo() {
-        return pasatiempo;
+    public List<String> getPasatiempos() {
+        return pasatiempos;
     }
 
-    public void setPasatiempo(String pasatiempo) {
-        this.pasatiempo = pasatiempo;
+    public void setPasatiempos(List<String> pasatiempos) {
+        this.pasatiempos = pasatiempos;
     }
-
+    
     public String getTurno() {
         return turno;
     }
@@ -135,5 +138,7 @@ public class EstudianteDTO {
         this.estado = estado;
     }
 
-    
+    public void setImagenPerfilBase64(String imagenPerfilBase64) {
+        this.imagenPerfilBase64 = imagenPerfilBase64;
+    }
 }

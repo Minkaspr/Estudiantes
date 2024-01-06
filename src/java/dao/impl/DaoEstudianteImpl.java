@@ -2,11 +2,13 @@ package dao.impl;
 
 import dao.DaoEstudiante;
 import dto.EstudianteDTO;
+import entity.EstudPasat;
 import entity.Estudiante;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import util.ConexionBD;
@@ -71,13 +73,12 @@ public class DaoEstudianteImpl implements DaoEstudiante {
                 .append("peso, ")
                 .append("altura, ")
                 .append("genero, ")
-                .append("pasatiempo, ")
                 .append("turno, ")
                 .append("fecha_registro, ")
                 .append("estado ")
                 .append(") VALUES (?,?,?,?,?,?,?,?,?,?,?,?) ");
         try (Connection cn = conexion.conexionBD()) {
-            PreparedStatement ps = cn.prepareStatement(sql.toString());
+            PreparedStatement ps = cn.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, estudiante.getNombre());
             ps.setString(2, estudiante.getApellido());
             ps.setDate(3, java.sql.Date.valueOf(estudiante.getFechaNacimiento()));
@@ -87,13 +88,25 @@ public class DaoEstudianteImpl implements DaoEstudiante {
             ps.setDouble(7, estudiante.getPeso());
             ps.setDouble(8, estudiante.getAltura());
             ps.setInt(9, estudiante.getGenero());
-            ps.setInt(10, estudiante.getPasatiempo());
-            ps.setInt(11, estudiante.getTurno());
-            ps.setTimestamp(12, java.sql.Timestamp.valueOf(estudiante.getFechaRegistro()));
-            ps.setString(13, estudiante.getEstado());
+            ps.setInt(10, estudiante.getTurno());
+            ps.setTimestamp(11, java.sql.Timestamp.valueOf(estudiante.getFechaRegistro()));
+            ps.setString(12, estudiante.getEstado());
             int ctos = ps.executeUpdate();
             if (ctos == 0) {
                 mensaje = "cero filas insertadas";
+            } else {
+                ResultSet rs = ps.getGeneratedKeys();
+                if (rs.next()) {
+                    int idEstudiante = rs.getInt(1);
+                    for (EstudPasat pasatiempo : estudiante.getPasatiempos()) {
+                        sql = new StringBuilder();
+                        sql.append("INSERT INTO estudpasat(estudiante, pasatiempo) VALUES (?, ?)");
+                        ps = cn.prepareStatement(sql.toString());
+                        ps.setInt(1, idEstudiante);
+                        ps.setInt(2, pasatiempo.getPasatiempo());
+                        ps.executeUpdate();
+                    }
+                }
             }
         } catch (SQLException e) {
             mensaje = e.getMessage();

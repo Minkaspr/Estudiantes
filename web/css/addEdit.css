@@ -121,16 +121,8 @@ body {
     color: #FFFFFF;
 }
 
-.dropdown {
-    min-width: 240px;
-    position: relative;
-}
-
-.dropdown * {
-    box-sizing: border-box;
-}
-
-.select {
+/**/
+.imput select {
     background: transparent;
     border-radius: 10px;
     border: solid 1px rgba(255, 255, 255, 0.3);
@@ -144,67 +136,27 @@ body {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     cursor: pointer;
     transition: background 0.3s;
 }
 
-.select:hover {
+.imput select:hover {
     background: rgba(255, 255, 255, 0.1);
 }
 
-.caret {
-    width: 0;
-    height: 0;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-top: 6px solid #fff;
-    transition: 0.3s;
-}
-
-.caret-rotate {
-    transform: rotate(180deg);
-}
-
-.menu {
-    list-style: none;
-    padding: 3.2px 8px;
+.imput select option {
     background: rgba(49, 49, 49, 0.9);
     border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
     color: #FFFFFF;
-    position: absolute;
-    top: 3em;
-    left: 50%;
-    width: 100%;
-    transform: translateX(-50%);
-    opacity: 0;
-    display: none;
-    transition: 0.2s;
-    z-index: 1;
-    backdrop-filter: blur(20px);
-}
-
-.menu.menu-open {
-    display: block;
-    opacity: 1;
-}
-
-.menu li {
     padding: 11.2px 8px;
-    margin: 4.8px 0;
     border-radius: 8px;
-    cursor: pointer;
 }
 
-.menu li:hover {
+.imput select option:hover {
     background: rgba(255, 255, 255, 0.1);
 }
 
-.active {
+.imput select option:checked {
     background: rgba(255, 255, 255, 0.2);
 }
 

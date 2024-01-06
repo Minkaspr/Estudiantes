@@ -1,4 +1,4 @@
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -22,7 +22,7 @@
             </div>
             <div class="header-bottom">
                 <a href="#" class="item-bottom"><img class="icon" src="assets/user-delete.svg" alt="Eliminar"></a>
-                <a href="estudianteIns.jsp" class="item-bottom"><img class="icon" src="assets/user-add.svg" alt="Agregar"></a>
+                <a href="Estudiante?op=DF" class="item-bottom"><img class="icon" src="assets/user-add.svg" alt="Agregar"></a>
             </div>
             <div class="table">
                 <table class="table-container">
@@ -34,6 +34,32 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <c:forEach var="estudiante" items="${estudiantes}">
+                            <tr>
+                                <td>
+                                    <div class="table-checkbox"><input type="checkbox"></div>
+                                </td>
+                                <td colspan="4">
+                                    <div class="table-data">
+                                        <div class="img-profile">
+                                            <img class="img" src="data:image/jpeg;base64,${estudiante.imagenPerfilBase64}">
+                                        </div>
+                                        <div class="data-profile">
+                                            <p class="data">${estudiante.nombre} ${estudiante.apellido}</p>
+                                            <p class="data">${estudiante.correo}</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="table-operations">
+                                        <a href="estudianteDet.jsp" class="item-operations"><img class="icon" src="assets/user-question.svg" alt="Visualizar"></a>
+                                        <a href="estudianteUpd.jsp" class="item-operations"><img class="icon" src="assets/user-edit.svg" alt="Editar"></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </c:forEach>
+
+
                         <tr>
                             <td>
                                 <div class="table-checkbox"><input type="checkbox"></div>
