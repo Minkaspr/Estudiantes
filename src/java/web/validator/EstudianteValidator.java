@@ -36,16 +36,6 @@ public class EstudianteValidator {
         this.daoEstudiante = new DaoEstudianteImpl();
     }
 
-//    public String estudianteSel(){
-//        String result = null;
-//        List<EstudianteDTO> list = daoEstudiante.estudianteSel();
-//        if (list != null) {
-//            request.setAttribute("estudiantes", list);
-//        } else { 
-//            result = daoEstudiante.getMessage();
-//        }
-//        return result; 
-//    }
     public String estudianteSel() {
         String result = null;
         List<EstudianteDTO> list = daoEstudiante.estudianteSel();
@@ -307,5 +297,20 @@ public class EstudianteValidator {
             request.setAttribute("pasatiemposSelec", pasatiemposSelec);
         }
         return result.length() == 35 ? null : result.append("</ul>").toString();
+    }
+
+    public String estudianteDet() {
+        String result = null;
+        
+        String idEstudianteAux = request.getParameter("idEstudiante");
+        Integer idEstudiante = Integer.valueOf(idEstudianteAux);
+        EstudianteDTO estudianteDTO = daoEstudiante.estudianteDet(idEstudiante);
+        
+        if (estudianteDTO != null) { 
+            request.setAttribute("estudianteDTO", estudianteDTO);
+        } else {
+            result = daoEstudiante.getMessage();
+        }
+        return result;
     }
 }

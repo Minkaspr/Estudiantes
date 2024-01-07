@@ -9,7 +9,7 @@ public class EstudianteDTO {
     private Integer idEstudiante;
     private String nombre;
     private String apellido;
-    private LocalDate fechaNacimiento;
+    private String fechaNacimiento;
     private String nDocumentoIdentidad;
     private String correo;
     private byte[] imagenPerfil;
@@ -18,7 +18,7 @@ public class EstudianteDTO {
     private String genero;
     private List<String> pasatiempos;
     private String turno;
-    private LocalDateTime fechaRegistro;
+    private String fechaRegistro;
     private String estado;
     
     private String imagenPerfilBase64;
@@ -50,11 +50,11 @@ public class EstudianteDTO {
         this.apellido = apellido;
     }
 
-    public LocalDate getFechaNacimiento() {
+    public String getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(LocalDate fechaNacimiento) {
+    public void setFechaNacimiento(String fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 
@@ -122,11 +122,11 @@ public class EstudianteDTO {
         this.turno = turno;
     }
 
-    public LocalDateTime getFechaRegistro() {
+    public String getFechaRegistro() {
         return fechaRegistro;
     }
 
-    public void setFechaRegistro(LocalDateTime fechaRegistro) {
+    public void setFechaRegistro(String fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
     }
 

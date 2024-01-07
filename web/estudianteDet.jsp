@@ -1,4 +1,4 @@
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -13,7 +13,7 @@
             <div class="header">
                 <h2 class="title">Perfil del Estudiante</h2>
                 <div class="back">
-                    <a href="#" class="btn-icon">
+                    <a href="Estudiante?op=SEL" class="btn-icon">
                         <img class="icon" src="assets/user-back.svg" alt="atras">
                         Atras
                     </a>
@@ -25,11 +25,11 @@
             </div>
             <div class="main">
                 <div class="img-profile">
-                    <img class="img" src="assets/user1.jpg">
+                    <img class="img" src="data:image/*;base64,${estudianteDTO.imagenPerfilBase64}">
                 </div>
                 <div class="data-profile">
-                    <p class="data-name">Julieta Torres Pereza hola abe dec efd daa</p>
-                    <p class="data-email">julieta@gmail.com</p>
+                    <p class="data-name">${estudianteDTO.nombre} ${estudianteDTO.apellido}</p>
+                    <p class="data-email">${estudianteDTO.correo}</p>
                 </div>
                 <div class="data-details">
                     <div class="sub-title"><h3>Detalles</h3></div>
@@ -37,16 +37,16 @@
                     <div class="description">
                         <span class="description-title">N° Documento de Identidad</span>    
                         <div class="description-info">
-                            <img class="icon-details" src="assets/ic-id-card.svg" alt="mañana">
-                            <p class="description-text">12345678</p>
+                            <img class="icon-details" src="assets/ic-id-card.svg" alt="numero de identidad">
+                            <p class="description-text">${estudianteDTO.nDocumentoIdentidad}</p>
                         </div>
                     </div>
 
                     <div class="description">
                         <span class="description-title">Fecha de nacimiento</span>    
                         <div class="description-info">
-                            <img class="icon-details" src="assets/ic-date.svg" alt="mañana">
-                            <p class="description-text">16/12/2023</p>
+                            <img class="icon-details" src="assets/ic-date.svg" alt="fecha de nacimiento">
+                            <p class="description-text">${estudianteDTO.fechaNacimiento}</p>
                         </div>
                     </div>
 
@@ -54,51 +54,50 @@
                         <div class="description">
                             <span class="description-title">Altura</span>    
                             <div class="description-info">
-                                <img class="icon-details" src="assets/ic-arrow-fit-height.svg" alt="mañana">
-                                <p class="description-text">1.72 cm</p>
+                                <img class="icon-details" src="assets/ic-arrow-fit-height.svg" alt="altura">
+                                <p class="description-text">${estudianteDTO.altura} cm</p>
                             </div>
                         </div>
 
                         <div class="description">
                             <span class="description-title">Peso</span>    
                             <div class="description-info">
-                                <img class="icon-details" src="assets/ic-weight.svg" alt="mañana">
-                                <p class="description-text">70 KG</p>
+                                <img class="icon-details" src="assets/ic-weight.svg" alt="peso">
+                                <p class="description-text">${estudianteDTO.peso} KG</p>
                             </div>
                         </div>
 
                         <div class="description">
                             <span class="description-title">Género</span>    
                             <div class="description-info">
-                                <img class="icon-details" src="assets/ic-gender-mark.svg" alt="mañana">
-                                <p class="description-text">Femenino</p>
+                                <img class="icon-details" src="assets/ic-gender-mark.svg" alt="genero">
+                                <p class="description-text">${estudianteDTO.genero}</p>
                             </div>
                         </div>
                     </div>
                     <div class="hobbies">
-                        <span class="description-title">Hobbies</span>    
+                        <span class="description-title">Pasatiempos</span>    
                         <div class="description-info hobb">
-                            <img class="icon-details" src="assets/ic-square-poll-horizontal.svg" alt="mañana">
+                            <img class="icon-details" src="assets/ic-square-poll-horizontal.svg" alt="pasatiempos">
                             <ul class="description-text">
-                                <li>Bailar</li>
-                                <li>Cantar</li>
-                                <li>Bailar</li>
-                                <li>Cantar</li>
+                                <c:forEach var="pasatiempo" items="${estudianteDTO.pasatiempos}">
+                                    <li>${pasatiempo}</li>
+                                </c:forEach>
                             </ul>
                         </div>
                     </div>
                     <div class="description">
                         <span class="description-title">Fecha Registro</span>    
                         <div class="description-info">
-                            <img class="icon-details" src="assets/ic-date-time.svg" alt="mañana">
-                            <p class="description-text">28/12/2023</p>
+                            <img class="icon-details" src="assets/ic-date-time.svg" alt="fecha de registro">
+                            <p class="description-text">${estudianteDTO.fechaRegistro}</p>
                         </div>
                     </div>
                     <div class="description">
                         <span class="description-title">Estado</span>    
                         <div class="description-info">
-                            <img class="icon-details" src="assets/ic-calendar-user.svg" alt="mañana">
-                            <p class="description-text">Activo</p>
+                            <img class="icon-details" src="assets/ic-calendar-user.svg" alt="estado">
+                            <p class="description-text">${estudianteDTO.estado}</p>
                         </div>
                     </div>
                 </div>

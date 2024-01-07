@@ -41,6 +41,10 @@ public class EstudianteServlet extends HttpServlet {
                 result = validator.estudianteInsUpd(true);
                 target = result == null ? "Estudiante?op=SEL" : "mascotaUpd.jsp";
                 break;
+            case "DET":
+                result = validator.estudianteDet();
+                target = "estudianteDet.jsp";
+                break;
             case "":
                 result = "Solicitud requerida";
                 break;
