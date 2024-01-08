@@ -68,6 +68,7 @@
                         <div class="imput">
                             <label for="genero">Género:</label>
                             <select id="genero" name="genero">
+                                <option value="" disabled>Seleccionar</option>
                                 <c:forEach var="g" items="${generos}">
                                     <option value="${g.idGenero}" <c:if test="${g.idGenero == estudiante.genero}">selected</c:if>>
                                         ${g.genero}

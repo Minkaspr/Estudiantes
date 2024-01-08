@@ -299,14 +299,51 @@ public class EstudianteValidator {
         return result.length() == 35 ? null : result.append("</ul>").toString();
     }
 
+    public String estudianteGet() {
+        String result = null;
+        String idEstudianteAux = request.getParameter("idEstudiante");
+        Integer idEstudiante = Integer.valueOf(idEstudianteAux);
+        Estudiante estudiante = daoEstudiante.estudianteGet(idEstudiante);
+
+        // Obtenemos la lista de 'Generos', 'Turnos' y 'Pasatiempos'
+        DaoGenero daoGenero = new DaoGeneroImpl();
+        DaoPasatiempo daoPasatiempo = new DaoPasatiempoImpl();
+        DaoTurno daoTurno = new DaoTurnoImpl();
+
+        List<Genero> generos = daoGenero.generoRadBtn();
+        List<Pasatiempo> pasatiempos = daoPasatiempo.pasatiempoCheBox();
+        List<Turno> turnos = daoTurno.turnoSelOp();
+
+        // Obtenemos la lista de pasatiempos seleccionados del estudiante
+        List<Integer> pasatiemposSelec = new ArrayList<>();
+        if (estudiante != null) {
+            for (EstudPasat pasatiempo : estudiante.getPasatiempos()) {
+                pasatiemposSelec.add(pasatiempo.getPasatiempo());
+            }
+        }
+
+        if (estudiante != null && generos != null && pasatiempos != null && turnos != null) {
+            request.setAttribute("estudiante", estudiante);
+            request.setAttribute("pasatiemposSelec", pasatiemposSelec);
+
+            // Enviamos la lista de 'Generos', 'Turnos' y 'Pasatiempos'
+            request.setAttribute("generos", generos);
+            request.setAttribute("pasatiempos", pasatiempos);
+            request.setAttribute("turnos", turnos);
+        } else {
+            result = daoEstudiante.getMessage();
+        }
+        return result;
+    }
+
     public String estudianteDet() {
         String result = null;
-        
+
         String idEstudianteAux = request.getParameter("idEstudiante");
         Integer idEstudiante = Integer.valueOf(idEstudianteAux);
         EstudianteDTO estudianteDTO = daoEstudiante.estudianteDet(idEstudiante);
-        
-        if (estudianteDTO != null) { 
+
+        if (estudianteDTO != null) {
             request.setAttribute("estudianteDTO", estudianteDTO);
         } else {
             result = daoEstudiante.getMessage();

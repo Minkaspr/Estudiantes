@@ -141,13 +141,77 @@ public class DaoEstudianteImpl implements DaoEstudiante {
 
     @Override
     public Estudiante estudianteGet(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Estudiante estudiante = new Estudiante();
+        StringBuilder query = new StringBuilder();
+        query.append("SELECT ")
+                .append("id_estudiante, ")
+                .append("nombre, ")
+                .append("apellido, ")
+                .append("fecha_nacimiento, ")
+                .append("n_doc_identidad, ")
+                .append("correo, ")
+                .append("imagen_perfil, ")
+                .append("peso, ")
+                .append("altura, ")
+                .append("genero, ")
+                .append("turno, ")
+                .append("estado ")
+                .append("FROM estudiante ")
+                .append("WHERE id_estudiante = ?");
+        try (Connection cn = conexion.conexionBD()) {
+            PreparedStatement ps = cn.prepareStatement(query.toString());
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    estudiante.setIdEstudiante(rs.getInt(1));
+                    estudiante.setNombre(rs.getString(2));
+                    estudiante.setApellido(rs.getString(3));
+                    LocalDate fechaNacimiento = rs.getDate(4).toLocalDate();
+                    estudiante.setFechaNacimiento(fechaNacimiento);
+                    estudiante.setnDocumentoIdentidad(rs.getString(5));
+                    estudiante.setCorreo(rs.getString(6));
+                    byte[] imagenPerfil = rs.getBytes(7);
+                    estudiante.setImagenPerfil(imagenPerfil);
+                    estudiante.setPeso(rs.getDouble(8));
+                    estudiante.setAltura(rs.getDouble(9));
+                    estudiante.setGenero(rs.getInt(10));
+
+                    List<EstudPasat> pasatiempos = new ArrayList<>();
+                    StringBuilder subquery = new StringBuilder();
+                    subquery.append("SELECT e.estudiante, e.pasatiempo ")
+                            .append("FROM estudpasat e ")
+                            .append("WHERE e.estudiante = ?");
+
+                    PreparedStatement psPasatiempos = cn.prepareStatement(subquery.toString());
+                    psPasatiempos.setInt(1, id);
+                    try (ResultSet rsPasatiempos = psPasatiempos.executeQuery()) {
+                        while (rsPasatiempos.next()) {
+                            EstudPasat pasatiempo = new EstudPasat();
+                            pasatiempo.setEstudiante(rsPasatiempos.getInt(1));
+                            pasatiempo.setPasatiempo(rsPasatiempos.getInt(2));
+                            pasatiempos.add(pasatiempo);
+                        }
+                    }
+                    estudiante.setPasatiempos(pasatiempos);
+
+                    estudiante.setTurno(rs.getInt(11));
+                    estudiante.setEstado(rs.getString(12));
+                } else {
+                    estudiante = null;
+                }
+            } catch (SQLException e) {
+                mensaje = e.getMessage();
+            }
+        } catch (SQLException e) {
+            mensaje = e.getMessage();
+        }
+        return estudiante;
     }
 
     @Override
     public String estudianteIns(Estudiante estudiante) {
-        StringBuilder sql = new StringBuilder();
-        sql.append("INSERT INTO estudiante( ")
+        StringBuilder query = new StringBuilder();
+        query.append("INSERT INTO estudiante( ")
                 .append("nombre, ")
                 .append("apellido, ")
                 .append("fecha_nacimiento, ")
@@ -162,7 +226,7 @@ public class DaoEstudianteImpl implements DaoEstudiante {
                 .append("estado ")
                 .append(") VALUES (?,?,?,?,?,?,?,?,?,?,?,?) ");
         try (Connection cn = conexion.conexionBD()) {
-            PreparedStatement ps = cn.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = cn.prepareStatement(query.toString(), Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, estudiante.getNombre());
             ps.setString(2, estudiante.getApellido());
             ps.setDate(3, java.sql.Date.valueOf(estudiante.getFechaNacimiento()));
@@ -183,9 +247,9 @@ public class DaoEstudianteImpl implements DaoEstudiante {
                 if (rs.next()) {
                     int idEstudiante = rs.getInt(1);
                     for (EstudPasat pasatiempo : estudiante.getPasatiempos()) {
-                        sql = new StringBuilder();
-                        sql.append("INSERT INTO estudpasat(estudiante, pasatiempo) VALUES (?, ?)");
-                        ps = cn.prepareStatement(sql.toString());
+                        query = new StringBuilder();
+                        query.append("INSERT INTO estudpasat(estudiante, pasatiempo) VALUES (?, ?)");
+                        ps = cn.prepareStatement(query.toString());
                         ps.setInt(1, idEstudiante);
                         ps.setInt(2, pasatiempo.getPasatiempo());
                         ps.executeUpdate();
@@ -200,7 +264,59 @@ public class DaoEstudianteImpl implements DaoEstudiante {
 
     @Override
     public String estudianteUpd(Estudiante estudiante) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        StringBuilder query = new StringBuilder();
+        query.append("UPDATE estudiante SET ")
+                .append("nombre = ?, ")
+                .append("apellido = ?, ")
+                .append("fecha_nacimiento = ?, ")
+                .append("n_doc_identidad = ?, ")
+                .append("correo = ?, ")
+                .append("imagen_perfil = ?, ")
+                .append("peso = ?, ")
+                .append("altura = ?, ")
+                .append("genero = ?, ")
+                .append("turno = ?, ")
+                .append("estado = ? ")
+                .append("WHERE id_estudiante = ?");
+        try (Connection cn = conexion.conexionBD()) {
+            PreparedStatement ps = cn.prepareStatement(query.toString());
+            ps.setString(1, estudiante.getNombre());
+            ps.setString(2, estudiante.getApellido());
+            ps.setDate(3, java.sql.Date.valueOf(estudiante.getFechaNacimiento()));
+            ps.setString(4, estudiante.getnDocumentoIdentidad());
+            ps.setString(5, estudiante.getCorreo());
+            ps.setBytes(6, estudiante.getImagenPerfil());
+            ps.setDouble(7, estudiante.getPeso());
+            ps.setDouble(8, estudiante.getAltura());
+            ps.setInt(9, estudiante.getGenero());
+            ps.setInt(10, estudiante.getTurno());
+            ps.setString(11, estudiante.getEstado());
+            ps.setInt(12, estudiante.getIdEstudiante());
+            int ctos = ps.executeUpdate();
+            if (ctos == 0) {
+                mensaje = "No se pudo actualizar";
+            } else {
+                // Elimina los pasatiempos antiguos del estudiante
+                query = new StringBuilder();
+                query.append("DELETE FROM estudpasat WHERE estudiante = ?");
+                ps = cn.prepareStatement(query.toString());
+                ps.setInt(1, estudiante.getIdEstudiante());
+                ps.executeUpdate();
+
+                // Inserta los nuevos pasatiempos del estudiante
+                for (EstudPasat pasatiempo : estudiante.getPasatiempos()) {
+                    query = new StringBuilder();
+                    query.append("INSERT INTO estudpasat(estudiante, pasatiempo) VALUES (?, ?)");
+                    ps = cn.prepareStatement(query.toString());
+                    ps.setInt(1, estudiante.getIdEstudiante());
+                    ps.setInt(2, pasatiempo.getPasatiempo());
+                    ps.executeUpdate();
+                }
+            }
+        } catch (SQLException e) {
+            mensaje = e.getMessage();
+        }
+        return mensaje;
     }
 
     @Override

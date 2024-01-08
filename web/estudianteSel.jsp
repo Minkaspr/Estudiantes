@@ -53,7 +53,7 @@
                                 <td>
                                     <div class="table-operations">
                                         <a href="Estudiante?op=DET&idEstudiante=${estudiante.idEstudiante}" class="item-operations"><img class="icon" src="assets/user-question.svg" alt="Visualizar"></a>
-                                        <a href="estudianteUpd.jsp" class="item-operations"><img class="icon" src="assets/user-edit.svg" alt="Editar"></a>
+                                        <a href="Estudiante?op=GET&idEstudiante=${estudiante.idEstudiante}" class="item-operations"><img class="icon" src="assets/user-edit.svg" alt="Editar"></a>
                                     </div>
                                 </td>
                             </tr>

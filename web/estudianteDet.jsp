@@ -21,7 +21,14 @@
             </div>
             <div class="shift">
                 <span>Turno</span>
-                <img class="icon-shift" src="assets/shift-sunrise.svg" alt="mañana">
+                <img class="icon-shift" src="
+                     <c:choose>
+                         <c:when test="${estudianteDTO.turno eq 'Mañana'}">assets/shift-sunrise.svg</c:when>
+                         <c:when test="${estudianteDTO.turno eq 'Tarde'}">assets/shift-sun.svg</c:when>
+                         <c:otherwise>assets/shift-night.svg</c:otherwise>
+                     </c:choose>
+                         " alt="${estudianteDTO.turno}">
+                <span style="font-size: 14px">${estudianteDTO.turno}</span>
             </div>
             <div class="main">
                 <div class="img-profile">
@@ -82,7 +89,7 @@
                             <ul class="description-text">
                                 <c:forEach var="pasatiempo" items="${estudianteDTO.pasatiempos}">
                                     <li>${pasatiempo}</li>
-                                </c:forEach>
+                                    </c:forEach>
                             </ul>
                         </div>
                     </div>
