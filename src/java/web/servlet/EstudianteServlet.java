@@ -49,6 +49,13 @@ public class EstudianteServlet extends HttpServlet {
                 result = validator.estudianteDet();
                 target = "estudianteDet.jsp";
                 break;
+            case "SRCH":
+                result = validator.estudianteSrch();
+                break;
+            case "DEL":
+                result = validator.estudianteDel();
+                target = "Estudiante?op=SEL";
+                break;
             case "":
                 result = "Solicitud requerida";
                 break;

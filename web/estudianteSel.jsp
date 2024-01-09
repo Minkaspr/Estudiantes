@@ -13,15 +13,18 @@
             <div class="header-top">
                 <h2 class="title">Estudiantes</h2>
                 <div class="group">
-                    <div class="search">
-                        <input class="search-right" type="text" placeholder="Buscar">
-                        <a href="#" class="search-left"><img class="icon" src="assets/user-search.svg" alt="Buscar"></a>
-                    </div>
-                    <a href="#" class="refresh"><img class="icon" src="assets/user-refresh.svg" alt="Refrescar"></a>
+                    <form action="Estudiante" method="post">
+                        <div class="search">
+                            <input type="hidden" name="op" value="SRCH"/>
+                            <input class="search-right" type="text" placeholder="Buscar" name="buscar">
+                            <button type="submit" class="search-left"><img class="icon" src="assets/user-search.svg" alt="Buscar"></button>
+                        </div>
+                    </form>
+                    <a href="Estudiante?op=SEL" class="refresh"><img class="icon" src="assets/user-refresh.svg" alt="Refrescar"></a>
                 </div>
             </div>
             <div class="header-bottom">
-                <a href="#" class="item-bottom"><img class="icon" src="assets/user-delete.svg" alt="Eliminar"></a>
+                <a href="#" onclick="estudiantesDel();" class="item-bottom"><img class="icon" src="assets/user-delete.svg" alt="Eliminar"></a>
                 <a href="Estudiante?op=DF" class="item-bottom"><img class="icon" src="assets/user-add.svg" alt="Agregar"></a>
             </div>
             <div class="table">
@@ -37,7 +40,7 @@
                         <c:forEach var="estudiante" items="${estudiantes}">
                             <tr>
                                 <td>
-                                    <div class="table-checkbox"><input type="checkbox"></div>
+                                    <div class="table-checkbox"><input type="checkbox" name="id_del" value="${estudiante.idEstudiante}"></div>
                                 </td>
                                 <td colspan="4">
                                     <div class="table-data">
@@ -109,5 +112,49 @@
                 </table>
             </div>
         </div>
+        <c:if test="${message != null}">
+            <div 
+                style="
+                position: absolute;
+                top: 64px;
+                right: 64px;
+                width: 320px;
+                background: rgba(255, 255, 255, .1);
+                backdrop-filter: blur(10px);
+                border: 1.5px solid rgba(255, 255, 255, .2);
+                border-radius: 16px;
+                padding: 16px;
+                "
+                >
+                <h3>Corregir</h3>
+                ${message}
+            </div>
+        </c:if>
+        <script>
+            function estudiantesDel() {
+                // Crea un arreglo vacío para almacenar los ids de los estudiantes a eliminar
+                var ids = [];
+                // Obtiene todos los checkboxes seleccionados y los agrega al arreglo de ids
+                document.querySelectorAll("input[name='id_del']:checked").forEach(function (element) {
+                    ids.push(element.value);
+                });
+                // Si no se ha seleccionado ningún checkbox
+                if (ids.length === 0) {
+                    // Muestra un mensaje de alerta
+                    alert("Advertencia\n\nSeleccione la(s) fila(s) a Retirar");
+                } else {
+                    // Pregunta al usuario si está seguro de eliminar los registros seleccionados
+                    var exito = confirm('¿Seguro que deseas borrar los registros?');
+                    // Si el usuario confirma la eliminación
+                    if (exito) {
+                        // Redirige a la página de eliminación de estudiantes con los ids de los estudiantes a eliminar
+                        window.location = "Estudiante?op=DEL&ids=" + ids.toString();
+                    } else {
+                        // Muestra un mensaje indicando que la operación fue cancelada
+                        alert("Operación cancelada");
+                    }
+                }
+            }
+        </script>
     </body>
 </html>

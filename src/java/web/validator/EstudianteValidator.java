@@ -350,4 +350,31 @@ public class EstudianteValidator {
         }
         return result;
     }
+
+    public String estudianteSrch() {
+        String result = null;
+        String buscar = request.getParameter("buscar");
+        List<EstudianteDTO> list = daoEstudiante.estudianteSrch(buscar);
+        if (list != null) {
+            request.setAttribute("estudiantes", list);
+        } else {
+            result = daoEstudiante.getMessage();
+        }
+        return result;
+    }
+
+    public String estudianteDel() {
+        String idsParam = request.getParameter("ids");
+        List<Integer> ids = new ArrayList<>();
+        if (idsParam != null && !idsParam.isEmpty()) {
+            String[] idsArray = idsParam.split(",");
+            for (String id : idsArray) {
+                ids.add(Integer.parseInt(id));
+            }
+        }
+        String result = (ids != null)
+                ? daoEstudiante.estudianteDel(ids)
+                : "IDs incorrectos";
+        return result;
+    }
 }

@@ -320,8 +320,67 @@ public class DaoEstudianteImpl implements DaoEstudiante {
     }
 
     @Override
+    public List<EstudianteDTO> estudianteSrch(String buscar) {
+        List<EstudianteDTO> lista = null;
+        StringBuilder query = new StringBuilder();
+        query.append("SELECT ")
+                .append("id_estudiante, ")
+                .append("imagen_perfil, ")
+                .append("nombre, ")
+                .append("apellido, ")
+                .append("correo ")
+                .append("FROM estudiante_view ")
+                .append("WHERE CONCAT(nombre, ' ', apellido) LIKE ?");
+        try (Connection cn = conexion.conexionBD()) {
+            PreparedStatement ps = cn.prepareStatement(query.toString());
+            ps.setString(1, "%" + buscar + "%");
+            ResultSet rs = ps.executeQuery();
+            lista = new ArrayList<>();
+            while (rs.next()) {
+                EstudianteDTO estudianteDTO = new EstudianteDTO();
+                estudianteDTO.setIdEstudiante(rs.getInt(1));
+                byte[] imagenPerfil = rs.getBytes(2);
+                estudianteDTO.setImagenPerfil(imagenPerfil);
+                estudianteDTO.setNombre(rs.getString(3));
+                estudianteDTO.setApellido(rs.getString(4));
+                estudianteDTO.setCorreo(rs.getString(5));
+                String imagenPerfilBase64 = Base64.getEncoder().encodeToString(imagenPerfil);
+                estudianteDTO.setImagenPerfilBase64(imagenPerfilBase64);
+                lista.add(estudianteDTO);
+            }
+        } catch (SQLException e) {
+            mensaje = e.getMessage();
+        }
+        return lista;
+    }
+
+    @Override
     public String estudianteDel(List<Integer> ids) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        StringBuilder query = new StringBuilder();
+        query.append("DELETE FROM estudiante WHERE ")
+                .append("id_estudiante = ? ");
+        try (Connection cn = conexion.conexionBD()) {
+            PreparedStatement ps = cn.prepareStatement(query.toString());
+            cn.setAutoCommit(false);
+            boolean ok = true;
+            for (int id = 0; id < ids.size(); id++) {
+                ps.setInt(1, ids.get(id));
+                int ctos = ps.executeUpdate();
+                if (ctos == 0) {
+                    ok = false;
+                    mensaje = "ID: " + ids.get(id) + " no existe";
+                }
+            }
+            if (ok) {
+                cn.commit();
+            } else {
+                cn.rollback();
+            }
+            cn.setAutoCommit(true);
+        } catch (SQLException e) {
+            mensaje = e.getMessage();
+        }
+        return mensaje;
     }
 
     @Override
