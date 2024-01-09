@@ -26,8 +26,10 @@ El objetivo de este proyecto es permitir la gestión de estudiantes. Los usuario
 1. Clona o descarga el repositorio del proyecto desde GitHub.
 2. Abre el proyecto en NetBeans o tu IDE preferido.
 3. Sigue las instrucciones en pantalla para interactuar con el sistema y gestionar los estudiantes.
-> .[!TIP].
+> [!TIP]
+> ```bash
 > git clone https://github.com/Minkaspr/Estudiantes.git
+> ```
 
 ## Estructura del Proyecto 🏗️
 
