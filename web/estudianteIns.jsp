@@ -137,6 +137,5 @@
                 ${message}
             </div>
         </c:if>
-        <script src="js/addEdit.js"></script>
     </body>
 </html>

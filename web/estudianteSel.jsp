@@ -32,7 +32,7 @@
                     <thead>
                         <tr>
                             <th colspan="1">Seleccionar</th>
-                            <th colspan="4">Contacto</th>
+                            <th colspan="4">Estudiantes</th>
                             <th colspan="1">Operaciones</th>
                         </tr>
                     </thead>
