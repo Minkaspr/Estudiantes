@@ -26,6 +26,8 @@ El objetivo de este proyecto es permitir la gestión de estudiantes. Los usuario
 1. Clona o descarga el repositorio del proyecto desde GitHub.
 2. Abre el proyecto en NetBeans o tu IDE preferido.
 3. Sigue las instrucciones en pantalla para interactuar con el sistema y gestionar los estudiantes.
+> .[!TIP].
+> git clone https://github.com/Minkaspr/Estudiantes.git
 
 ## Estructura del Proyecto 🏗️
 
@@ -47,7 +49,7 @@ La base de datos consta de las siguientes tablas:
 - Turno: Tabla con campos id_turno, turno.
 - Pasatiempo: Tabla con campos id_pasatiempo, pasatiempo.
 - EstudPasat: Tabla de intersección entre estudiante y pasatiempo con campos id_estudpasat, estudiante, pasatiempo.
-- Estudiante_view: Vista que se asemeja a la tabla estudiante pero diseñada para ser legible, mostrando el turno en lugar del id del turno.
+- Estudiante_view: Vista que se asemeja a la tabla estudiante pero diseñada para ser legible.
 
 ## Tecnologías Utilizadas 🚀
 
